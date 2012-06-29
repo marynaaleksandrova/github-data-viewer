@@ -1,0 +1,196 @@
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-family: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+body {
+  line-height: 1;
+  color: #000;
+  background: #fff;
+}
+ol,
+ul {
+  list-style: none;
+}
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  vertical-align: middle;
+}
+caption,
+th,
+td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+a img {
+  border: none;
+}
+body {
+  line-height: 1.6em;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+}
+.visible {
+  display: block;
+}
+.invisible {
+  display: none;
+}
+.visible-cell {
+  display: table-cell;
+}
+#repos-table.visible {
+  display: block;
+}
+#repos-table {
+  display: none;
+}
+table {
+  font-size: 12px;
+  margin: 45px auto;
+  text-align: left;
+  border-collapse: collapse;
+  width: 80%;
+}
+th {
+  font-size: 18px;
+  font-weight: normal;
+  padding: 12px 15px;
+  color: #039;
+}
+td {
+  padding: 10px 15px;
+  color: #669;
+  border-top: 1px solid #e8edff;
+}
+td a {
+  text-decoration: none;
+}
+td a h1 {
+  font-size: 16px;
+}
+.history-btn {
+  border: none;
+  background-color: transparent;
+  color: #669;
+  font-size: 12px;
+  padding: 0;
+}
+.history-btn:hover {
+  color: #339;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.name .history {
+  border: 1px solid #d2d5e0;
+  width: 415px;
+  display: none;
+  background-color: rgba(255,255,255,0.70);
+  margin-left: 20px;
+}
+.name ul.visible {
+  display: block;
+}
+tr:hover td {
+  color: #339;
+  background: #eff2ff;
+}
+.created,
+.updated,
+.size,
+.watchers,
+.wiki,
+.issues,
+.forks {
+  text-align: center;
+}
+.history li {
+  padding: 5px 0 5px 15px;
+  font-size: 11px;
+}
+.history li .author img {
+  width: 40px;
+}
+.history li:nth-child(even) {
+  background: #eff2ff;
+}
+li a:hover {
+  text-decoration: underline;
+}
+#login-form {
+  margin: 300px auto 0;
+  width: 400px;
+  text-align: center;
+}
+#recent-usernames {
+  width: 360px;
+  padding: 20px;
+}
+#dialog {
+  height: 700px;
+  width: 400px;
+  overflow-y: auto;
+}

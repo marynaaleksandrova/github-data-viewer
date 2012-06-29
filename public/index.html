@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Repositories</title>
+    <meta name="description" content="description should be here"/>
+    <meta name="keywords" content="keywords should be here"/>
+    <meta name="author" content="Maryna Aleksandrova">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="ui.css">
+  </head>
+  <body>
+    <div id='login-form'>
+      <div id="enter-username">
+        <input type="text" placeholder="Enter username..." id="username-input"></input>
+        <button id="show-repos-btn" value="Show repositories">Show repositories</button>
+      </div>
+      <div id="recent-usernames"></div>
+    </div>
+
+    <div id="repos-table">
+      <div id="options">
+        Check options to show:
+        <input type="checkbox" value="created" id="created" /> <label for="created">Created</label>
+        <input type="checkbox" value="updated" id="last-update" /> <label for="last-update">Last update</label>
+        <input type="checkbox" value="size" id="size" /> <label for="size">Size</label>
+        <input type="checkbox" value="watchers" id="watchers" /> <label for="watchers">Watchers</label>
+        <input type="checkbox" value="wiki" id="wiki" /> <label for="wiki">Wiki</label>
+        <input type="checkbox" value="issues" id="issues" /> <label for="issues">Issues</label>
+        <input type="checkbox" value="forks" id="forks" /> <label for="forks">Forks</label>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Repository name</th>
+            <th class="created invisible">Created</th>
+            <th class="updated invisible">Last update</th>
+            <th class="size invisible">Size</th>
+            <th class="watchers invisible">Watchers</th>
+            <th class="wiki invisible">Wiki</th>
+            <th class="issues invisible">Issues</th>
+            <th class="forks invisible">Forks</th>
+          </tr>
+        </thead>
+        <tbody id="repos">
+        </tbody>
+      </table>
+    </div>
+  <script src="jquery-1.7.2.min.js"></script>
+  <!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.5.3/modernizr.min.js"></script> -->
+  <script src="underscore.js"></script>
+  <script src="ui.js"></script>
+  
+  <script src="app.js"></script>
+  <script id="resitories-tpl" type="text/template">
+      <tr>
+        <td class="name">
+          <a href="<%= html_url %>"><h1 class="repo-name"><%= name %></h1></a>
+          <h2 class="description"><%= description %></h2>
+          <button class="history-btn">Show history</button>
+        </td>
+        <td class="created invisible"><%= created_at %></td>
+        <td class="updated invisible"><%= updated_at %></td>
+        <td class="size invisible"><%= size %></td>
+        <td class="watchers invisible"><%= watchers %></td>
+          <% if (has_wiki) {%>
+          <td class="yes wiki invisible">yes</td>
+          <% } else { %>
+          <td class="no wiki invisible">no</td>
+          <% } %>
+          
+          <% if (has_issues) {%>
+          <td class="yes issues invisible">yes</td>
+          <% } else { %>
+          <td class="no issues invisible">no</td>
+          <% } %>
+        <td class="forks invisible"><%= forks %></td>
+      </tr>
+  </script>
+  <script id="commits-history" type="text/template">
+    <li>
+      <span class="date"><%= commit.author.date %></span>
+      <a href = "<%= commit.url %>">Go to commit</a>
+      <p class = "commit-message"><%= commit.message %></p>
+      <div class="author">
+        <img src="<%= author.avatar_url %>" alt="<%= commit.author.name %>" title="<%= commit.author.name %>" class="author-avatar" />
+        <span class="autor-name"><%= commit.author.name %></span>
+      </div>
+    </li>
+  </script>
+  </body>
+</html>
