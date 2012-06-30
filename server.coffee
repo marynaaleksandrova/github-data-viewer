@@ -25,5 +25,8 @@ app.configure ->
   app.use express.static __dirname + "/public"
 
 
+app.get "/repos/:user", (req, res) ->
+  res.sendfile __dirname + "/public/index.html"
+
 app.listen 8080
 console.log "server started on port 8080. Open http://localhost:8080 in your browser"

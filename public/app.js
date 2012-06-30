@@ -107,7 +107,7 @@ $(function(){
     $("#show-repos-btn").on("click", function(){
       var username = $('#username-input').val();
       if (username.length) {
-        showUserRepos(username);
+        page('/repos/' + username);
         $("#username-input").val('');
       } else {
         alert ('Enter username');
@@ -119,7 +119,7 @@ $(function(){
         e.preventDefault();
         var username = $('#username-input').val();
         if (username.length) {
-          showUserRepos(username);
+          page('/repos/' + username);
           $("#username-input").val('');
         } else {
           alert ('Enter username');
@@ -129,7 +129,7 @@ $(function(){
     
     $('#recent-usernames').on("click", "a", function(){
       var username = $(this).text();
-      showUserRepos(username);
+      page('/repos/' + username);
       $("#username-input").val('');
 
       checkboxState = getLocalStorageState();
@@ -143,7 +143,13 @@ $(function(){
         }
       }
       
-      
     });
+
+    page('/repos/:username', function(ctx){
+      var username = ctx.params.username;
+      console.log(username);
+      showUserRepos(username);
+    });
+    page.start({ click: false });
     
 	});
