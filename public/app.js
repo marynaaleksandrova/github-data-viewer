@@ -49,6 +49,8 @@ $(function(){
     function showUserRepos(username) {
       currentUser = username;
 
+      $('#repos').html('');
+
       $('#login-form').addClass('invisible');
       $('#repos-table').addClass('visible');
 
@@ -64,6 +66,16 @@ $(function(){
         for (; i < repos.length; i++) {
           var html = reposItemTpl(repos[i]);
           reposContainer.append(html);
+        }
+        checkboxState = getLocalStorageState();
+        var checkboxes = $("input[type='checkbox']");
+        var i = 0;
+        for (; i < checkboxes.length; i++) {
+          var identifier = $( checkboxes[i] ).attr('value');
+          checkboxes[i].checked = checkboxState[identifier];
+          if (checkboxState[identifier] == true) {
+            $('.' + identifier).removeClass('invisible').addClass('visible-cell');
+          }
         }
       });
     }
@@ -127,28 +139,21 @@ $(function(){
       }
     });
     
-    $('#recent-usernames').on("click", "a", function(){
+    $('#recent-usernames').on("click", "a", function(e){
+      e.preventDefault();
       var username = $(this).text();
       page('/repos/' + username);
       $("#username-input").val('');
-
-      checkboxState = getLocalStorageState();
-      var checkboxes = $("input[type='checkbox']");
-      var i = 0;
-      for (; i < checkboxes.length; i++) {
-        var identifier = $( checkboxes[i] ).attr('value');
-        checkboxes[i].checked = checkboxState[identifier];
-        if (checkboxState[identifier] == true) {
-          $('.' + identifier).removeClass('invisible').addClass('visible-cell');
-        }
-      }
-      
     });
 
     page('/repos/:username', function(ctx){
       var username = ctx.params.username;
       console.log(username);
       showUserRepos(username);
+    });
+    page('', function(){
+      $('#login-form').removeClass('invisible').addClass('visible');
+      $('#repos-table').removeClass('visible').addClass('invisible');
     });
     page.start({ click: false });
     
