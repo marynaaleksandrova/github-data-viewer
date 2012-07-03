@@ -121,6 +121,9 @@ th {
   padding: 12px 15px;
   color: #039;
 }
+tr {
+  cursor: pointer;
+}
 td {
   padding: 10px 15px;
   color: #669;

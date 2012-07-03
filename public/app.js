@@ -115,6 +115,15 @@ $(function(){
         new ui.Dialog({title: "Commits' history",  message: $(commitsHtml)}).closable().overlay().show();
       });
     }
+
+    $('tbody').on('click', 'td.name a', function(e){
+      e.preventDefault();
+    });
+
+    $('tbody').on('click', 'tr', function(){
+      var repoName = $(this).find("a").attr('href');
+      page(repoName);
+    });
     
     $("#show-repos-btn").on("click", function(){
       var username = $('#username-input').val();
@@ -125,6 +134,7 @@ $(function(){
         alert ('Enter username');
       }
     });
+
     $("#username-input").keypress(function(e) {
     
       if(e.keyCode == 13) {
@@ -148,9 +158,19 @@ $(function(){
 
     page('/repos/:username', function(ctx){
       var username = ctx.params.username;
-      console.log(username);
       showUserRepos(username);
     });
+
+    page('/repos/:username/:repoName', function(ctx){
+      var repoName = ctx.params.repoName;
+      var username = ctx.params.username;
+      $('#login-form').removeClass('visible').addClass('invisible');
+      $('#repos-table').removeClass('visible').addClass('invisible');
+      $('#repo-info').removeClass('invisible').addClass('visible');
+      var repoInfoContainer = $('#repo-info').html('');
+      repoInfoContainer.repo({user: username, name: repoName});
+    });
+
     page('', function(){
       $('#login-form').removeClass('invisible').addClass('visible');
       $('#repos-table').removeClass('visible').addClass('invisible');

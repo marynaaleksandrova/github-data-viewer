@@ -45,17 +45,20 @@
         </tbody>
       </table>
     </div>
+    <div id="repo-info" class='invisible'>
+    </div>
   <script src="/jquery-1.7.2.min.js"></script>
   <!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.5.3/modernizr.min.js"></script> -->
   <script src="/underscore.js"></script>
   <script src="/page.js"></script>
   <script src="/ui.js"></script>
-  
   <script src="/app.js"></script>
+  <script src="/repo.js"></script>
+
   <script id="resitories-tpl" type="text/template">
       <tr>
         <td class="name">
-          <a href="<%= html_url %>"><h1 class="repo-name"><%= name %></h1></a>
+          <a href="/repos/<%= full_name %>"><h1 class="repo-name"><%= name %></h1></a>
           <h2 class="description"><%= description %></h2>
           <button class="history-btn">Show history</button>
         </td>

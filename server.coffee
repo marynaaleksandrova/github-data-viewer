@@ -28,5 +28,8 @@ app.configure ->
 app.get "/repos/:user", (req, res) ->
   res.sendfile __dirname + "/public/index.html"
 
+app.get "/repos/:user/:repoName", (req, res) ->
+  res.sendfile __dirname + "/public/index.html"
+
 app.listen 8080
 console.log "server started on port 8080. Open http://localhost:8080 in your browser"
