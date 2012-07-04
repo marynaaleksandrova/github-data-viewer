@@ -106,7 +106,26 @@ body {
   display: block;
 }
 #repos-table {
+  width: 45%;
+}
+#user-info {
   display: none;
+}
+#user-info.visible {
+  display: block;
+}
+#user-organizations {
+  margin: 10px auto 30px;
+}
+#user-organizations img{
+  display: inline-block;
+}
+#user-organizations h1{
+  display: inline-block;
+}
+#user-organizations div{
+  display: inline-block;
+  margin-left: 15px;
 }
 table {
   font-size: 12px;
@@ -120,9 +139,6 @@ th {
   font-weight: normal;
   padding: 12px 15px;
   color: #039;
-}
-tr {
-  cursor: pointer;
 }
 td {
   padding: 10px 15px;

@@ -17,33 +17,40 @@
       </div>
       <div id="recent-usernames"></div>
     </div>
-    <div id="repos-table">
-      <div id="options">
-        Check options to show:
-        <input type="checkbox" value="created" id="created" /> <label for="created">Created</label>
-        <input type="checkbox" value="updated" id="last-update" /> <label for="last-update">Last update</label>
-        <input type="checkbox" value="size" id="size" /> <label for="size">Size</label>
-        <input type="checkbox" value="watchers" id="watchers" /> <label for="watchers">Watchers</label>
-        <input type="checkbox" value="wiki" id="wiki" /> <label for="wiki">Wiki</label>
-        <input type="checkbox" value="issues" id="issues" /> <label for="issues">Issues</label>
-        <input type="checkbox" value="forks" id="forks" /> <label for="forks">Forks</label>
+    <div id="user-info">
+      <div id='main-user-info'>
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Repository name</th>
-            <th class="created invisible">Created</th>
-            <th class="updated invisible">Last update</th>
-            <th class="size invisible">Size</th>
-            <th class="watchers invisible">Watchers</th>
-            <th class="wiki invisible">Wiki</th>
-            <th class="issues invisible">Issues</th>
-            <th class="forks invisible">Forks</th>
-          </tr>
-        </thead>
-        <tbody id="repos">
-        </tbody>
-      </table>
+      <div id="user-organizations">
+        <h1>Organizations:</h1>
+      </div>
+      <div id="repos-table">
+        <div id="options">
+          Check options to show:
+          <input type="checkbox" value="created" id="created" /> <label for="created">Created</label>
+          <input type="checkbox" value="updated" id="last-update" /> <label for="last-update">Last update</label>
+          <input type="checkbox" value="size" id="size" /> <label for="size">Size</label>
+          <input type="checkbox" value="watchers" id="watchers" /> <label for="watchers">Watchers</label>
+          <input type="checkbox" value="wiki" id="wiki" /> <label for="wiki">Wiki</label>
+          <input type="checkbox" value="issues" id="issues" /> <label for="issues">Issues</label>
+          <input type="checkbox" value="forks" id="forks" /> <label for="forks">Forks</label>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Repository name</th>
+              <th class="created invisible">Created</th>
+              <th class="updated invisible">Last update</th>
+              <th class="size invisible">Size</th>
+              <th class="watchers invisible">Watchers</th>
+              <th class="wiki invisible">Wiki</th>
+              <th class="issues invisible">Issues</th>
+              <th class="forks invisible">Forks</th>
+            </tr>
+          </thead>
+          <tbody id="repos">
+          </tbody>
+        </table>
+      </div>
     </div>
     <div id="repo-info" class='invisible'>
     </div>
@@ -55,7 +62,7 @@
   <script src="/app.js"></script>
   <script src="/repo.js"></script>
 
-  <script id="resitories-tpl" type="text/template">
+  <script id="repositories-tpl" type="text/template">
       <tr>
         <td class="name">
           <a href="/repos/<%= full_name %>"><h1 class="repo-name"><%= name %></h1></a>
@@ -80,16 +87,32 @@
         <td class="forks invisible"><%= forks %></td>
       </tr>
   </script>
-  <script id="commits-history" type="text/template">
+  <script id = "commits-history" type = "text/template">
     <li>
       <span class="date"><%= commit.author.date %></span>
       <a href = "<%= commit.url %>">Go to commit</a>
       <p class = "commit-message"><%= commit.message %></p>
-      <div class="author">
-        <img src="<%= author.avatar_url %>" alt="<%= commit.author.name %>" title="<%= commit.author.name %>" class="author-avatar" />
-        <span class="autor-name"><%= commit.author.name %></span>
+      <div class = "author">
+        <img src ="<%= author.avatar_url %>" alt = "<%= commit.author.name %>" title="<%= commit.author.name %>" class="author-avatar" />
+        <span class = "autor-name"><%= commit.author.name %></span>
       </div>
     </li>
+  </script>
+  <script id = "user-info-tpl" type = "text/template">
+    <img src = '<%= avatar_url %>'><h1><%= name %></h1>
+    <div class="additional-info">
+      <span>Email</span>
+      <span><%= email %></span>
+      <span>URL</span>
+      <span><%= blog %></span>
+      <span>Member since</span>
+      <span><%= created_at %></span>
+    </div>
+  </script>
+  <script id = "user-and-orgs-tpl" type = "text/template">
+    <div>
+      <img src = '<%= avatar_url %>' width = "30" height = "30"><h1 class = 'user-org-name'><%= login %></h1>
+    </div>
   </script>
   </body>
 </html>

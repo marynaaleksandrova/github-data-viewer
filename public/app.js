@@ -40,26 +40,47 @@ $(function(){
     
     var reposContainer = $("#repos");
     var usernames = getLocalStorageData('usernamesStr');
+    var userOrgContainer = $('#user-organizations');
+    var userInfoContainer = $('#main-user-info');
       
     var i = 0;
     for (; i < usernames.length; i++) {
       $('#recent-usernames').append("<a href='#'>" + usernames[i] + "</a><br/>");
     }
     
-    function showUserRepos(username) {
+    function showUserInfo(username) {
       currentUser = username;
 
       $('#repos').html('');
 
       $('#login-form').addClass('invisible');
-      $('#repos-table').addClass('visible');
+      $('#user-info').addClass('visible');
 
       usernames.unshift(username);
       usernames = _.uniq(usernames);
       
       localStorage.setItem('usernamesStr', JSON.stringify(usernames));
+
+      var userInfoTpl = _.template($('#user-info-tpl').html());
+
+      $.getJSON("https://api.github.com/users/" + username, function(info) {
+        userInfoContainer.html('');
+        var html = userInfoTpl(info);
+        userInfoContainer.append(html);
+      });
+
+      var userOrgTpl = _.template($('#user-and-orgs-tpl').html());
+
+      $.getJSON("https://api.github.com/users/" + username + "/orgs", function(orgs) {
+        userOrgContainer.html('');
+        var i = 0;
+        for (; i < orgs.length; i++) {
+          var html = userOrgTpl(orgs[i]);
+          userOrgContainer.append(html);
+        }
+      });
     
-      var reposItemTpl = _.template($("#resitories-tpl").html());
+      var reposItemTpl = _.template($("#repositories-tpl").html());
       
       $.getJSON("https://api.github.com/users/" + username + "/repos", function(repos) {
         var i = 0;
@@ -158,14 +179,14 @@ $(function(){
 
     page('/repos/:username', function(ctx){
       var username = ctx.params.username;
-      showUserRepos(username);
+      showUserInfo(username);
     });
 
     page('/repos/:username/:repoName', function(ctx){
       var repoName = ctx.params.repoName;
       var username = ctx.params.username;
       $('#login-form').removeClass('visible').addClass('invisible');
-      $('#repos-table').removeClass('visible').addClass('invisible');
+      $('#user-info').removeClass('visible').addClass('invisible');
       $('#repo-info').removeClass('invisible').addClass('visible');
       var repoInfoContainer = $('#repo-info').html('');
       repoInfoContainer.repo({user: username, name: repoName});
@@ -173,7 +194,7 @@ $(function(){
 
     page('', function(){
       $('#login-form').removeClass('invisible').addClass('visible');
-      $('#repos-table').removeClass('visible').addClass('invisible');
+      $('#user-info').removeClass('visible').addClass('invisible');
     });
     page.start({ click: false });
     
