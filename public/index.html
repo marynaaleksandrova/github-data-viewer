@@ -23,6 +23,9 @@
       <div id="user-organizations">
         <h1>Organizations:</h1>
       </div>
+      <div id='user-events'>
+        <h1>User's events:</h1>
+      </div>
       <div id="repos-table">
         <div id="options">
           Check options to show:
@@ -53,6 +56,9 @@
       </div>
     </div>
     <div id="repo-info" class='invisible'>
+      <div id='repo-item-info'>
+      </div>
+      <button class="history-btn">Show history</button>
     </div>
   <script src="/jquery-1.7.2.min.js"></script>
   <!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.5.3/modernizr.min.js"></script> -->
@@ -67,7 +73,6 @@
         <td class="name">
           <a href="/repos/<%= full_name %>"><h1 class="repo-name"><%= name %></h1></a>
           <h2 class="description"><%= description %></h2>
-          <button class="history-btn">Show history</button>
         </td>
         <td class="created invisible"><%= created_at %></td>
         <td class="updated invisible"><%= updated_at %></td>
@@ -113,6 +118,37 @@
     <div>
       <img src = '<%= avatar_url %>' width = "30" height = "30"><h1 class = 'user-org-name'><%= login %></h1>
     </div>
+  </script>
+  <script id = "user-events-tpl" type = "text/template">
+    <% if (type == 'PushEvent') { %>
+      <div>
+        <span><%= actor.login %></span> pushed to <span><%= repo.name %></span> at <span><%= created_at %></span>
+      </div>
+    <% } else if (type == 'WatchEvent') { %> 
+      <div>
+        <span><%= actor.login %></span> started watching <span><%= repo.name %></span> at <span><%= created_at %></span>
+      </div>
+    <% } else if (type == 'ForkEvent') { %>
+      <div>
+        <span><%= actor.login %></span> forked <span><%= repo.name %></span> at <span><%= created_at %></span>
+      </div>
+    <% } else if (type == 'CreateEvent') { %>
+      <div>
+        <span><%= actor.login %></span> created repository <span><%= repo.name %></span> at <span><%= created_at %></span>
+      </div>
+    <% } else if (type == 'CommitCommentEvent') { %>
+      <div>
+        <span><%= actor.login %></span> commented on <span><%= repo.name %></span> at <span><%= created_at %></span>
+      </div>
+    <% } else if (type == 'IssueCommentEvent') { %>
+      <div>
+        <span><%= actor.login %></span> commented on <span><%= payload.ussue.pull_request.html_url %></span> on <span><%= repo.name%></span> at <span><%= created_at %></span>
+      </div>
+    <% } else if (type == 'FollowEvent') { %>
+      <div>
+        <span><%= actor.login %></span> started following <span><%= payload.target.login %></span> at <span><%= created_at %></span>
+      </div>
+    <% } %>
   </script>
   </body>
 </html>

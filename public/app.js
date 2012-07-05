@@ -42,6 +42,8 @@ $(function(){
     var usernames = getLocalStorageData('usernamesStr');
     var userOrgContainer = $('#user-organizations');
     var userInfoContainer = $('#main-user-info');
+    var userEventsContainer = $('#user-events');
+    var repoInfoContainer = $('#repo-item-info');
       
     var i = 0;
     for (; i < usernames.length; i++) {
@@ -53,8 +55,8 @@ $(function(){
 
       $('#repos').html('');
 
-      $('#login-form').addClass('invisible');
-      $('#user-info').addClass('visible');
+      $('#login-form').removeClass('visible').addClass('invisible');
+      $('#user-info').removeClass('invisible').addClass('visible');
 
       usernames.unshift(username);
       usernames = _.uniq(usernames);
@@ -77,6 +79,17 @@ $(function(){
         for (; i < orgs.length; i++) {
           var html = userOrgTpl(orgs[i]);
           userOrgContainer.append(html);
+        }
+      });
+
+      var userEventsTpl = _.template($('#user-events-tpl').html());
+
+      $.getJSON("https://api.github.com/users/" + username + "/events", function(events) {
+        userEventsContainer.html('');
+        var i = 0;
+        for (; i < events.length; i++) {
+          var html = userEventsTpl(events[i]);
+          userEventsContainer.append(html);
         }
       });
     
@@ -118,15 +131,15 @@ $(function(){
       }
     });
     
-    reposContainer.on('click', '.history-btn', showHistory);
+    $('#repo-info').on('click', '.history-btn', showHistory);
       
     function showHistory(){
      
-      var commitsUrl = $(this).parent().find("h1").html();
+      var repoName = $('#repo-item-info h1 a').html();
       var commitItemTpl = _.template($("#commits-history").html());
       var commitsHtml = '<ul class="history">';
       
-      $.getJSON("https://api.github.com/repos/" + currentUser + "/" + commitsUrl + "/commits", function(commits) {
+      $.getJSON("https://api.github.com/repos/" + currentUser + "/" + repoName + "/commits", function(commits) {
         var i = 0;
         for (; i < commits.length; i++) {
           var html = commitItemTpl(commits[i]);
@@ -185,10 +198,12 @@ $(function(){
     page('/repos/:username/:repoName', function(ctx){
       var repoName = ctx.params.repoName;
       var username = ctx.params.username;
+      currentUser = username;
+
       $('#login-form').removeClass('visible').addClass('invisible');
       $('#user-info').removeClass('visible').addClass('invisible');
       $('#repo-info').removeClass('invisible').addClass('visible');
-      var repoInfoContainer = $('#repo-info').html('');
+      repoInfoContainer.html('');
       repoInfoContainer.repo({user: username, name: repoName});
     });
 

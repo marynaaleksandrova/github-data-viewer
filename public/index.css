@@ -102,37 +102,26 @@ body {
 .visible-cell {
   display: table-cell;
 }
-#repos-table.visible {
-  display: block;
-}
 #repos-table {
   width: 45%;
-}
-#user-info {
-  display: none;
-}
-#user-info.visible {
-  display: block;
-}
-#user-organizations {
-  margin: 10px auto 30px;
-}
-#user-organizations img{
   display: inline-block;
+  margin-left: 20px;
+  vertical-align: top;
 }
-#user-organizations h1{
+#user-events {
+  width: 45%;
   display: inline-block;
+  margin-left: 10px;
+  vertical-align: top;
 }
-#user-organizations div{
-  display: inline-block;
-  margin-left: 15px;
+#user-events div {
+  margin-bottom: 15px;
 }
 table {
   font-size: 12px;
   margin: 45px auto;
   text-align: left;
   border-collapse: collapse;
-  width: 80%;
 }
 th {
   font-size: 18px;
