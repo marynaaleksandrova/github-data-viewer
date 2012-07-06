@@ -21,7 +21,8 @@
       <div id='main-user-info'>
       </div>
       <div id="user-organizations">
-        <h1>Organizations:</h1>
+      </div>
+      <div id="user-social-activity">
       </div>
       <div id='user-events'>
         <h1>User's events:</h1>
@@ -59,6 +60,10 @@
       <div id='repo-item-info'>
       </div>
       <button class="history-btn">Show history</button>
+    </div>
+    <div id='followers-page' class='invisible'>
+    </div>
+    <div id='following-page' class='invisible'>
     </div>
   <script src="/jquery-1.7.2.min.js"></script>
   <!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.5.3/modernizr.min.js"></script> -->
@@ -105,17 +110,36 @@
   </script>
   <script id = "user-info-tpl" type = "text/template">
     <img src = '<%= avatar_url %>'><h1><%= name %></h1>
-    <div class="additional-info">
-      <span>Email</span>
+    <div id="additional-info">
+      <span>Email:</span>
       <span><%= email %></span>
-      <span>URL</span>
+      <span>URL:</span>
       <span><%= blog %></span>
-      <span>Member since</span>
+      <span>Member since:</span>
       <span><%= created_at %></span>
     </div>
   </script>
+  <script id = "user-social-activity-tpl" type = "text/template">
+    <a href = '/repos/<%= login %>/followers'>
+      <div class = 'social-activity-item'>
+        <h1 class = 'number'><%= followers %></h1>
+        <h2 class = 'description'>followers</h2>
+      </div>
+    </a>
+    <a href = '/repos/<%= login %>/following'>
+      <div class = 'social-activity-item'>
+        <h1 class = 'number'><%= following %></h1>
+        <h2 class = 'description'>following</h2>
+      </div>
+    </a>
+  </script>
+  <script id = "followers-following-tpl" type = "text/template">
+    <div class='social-item'>
+      <img src = '<%= avatar_url %>'><h1><%= login %></h1>
+    </div>
+  </script>
   <script id = "user-and-orgs-tpl" type = "text/template">
-    <div>
+    <div class = 'organization-item'>
       <img src = '<%= avatar_url %>' width = "30" height = "30"><h1 class = 'user-org-name'><%= login %></h1>
     </div>
   </script>
@@ -142,7 +166,7 @@
       </div>
     <% } else if (type == 'IssueCommentEvent') { %>
       <div>
-        <span><%= actor.login %></span> commented on <span><%= payload.ussue.pull_request.html_url %></span> on <span><%= repo.name%></span> at <span><%= created_at %></span>
+        <span><%= actor.login %></span> commented on <span><%= payload.issue.pull_request.html_url %></span> on <span><%= repo.name%></span> at <span><%= created_at %></span>
       </div>
     <% } else if (type == 'FollowEvent') { %>
       <div>

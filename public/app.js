@@ -42,6 +42,7 @@ $(function(){
     var usernames = getLocalStorageData('usernamesStr');
     var userOrgContainer = $('#user-organizations');
     var userInfoContainer = $('#main-user-info');
+    var userSocialActivityContainer = $('#user-social-activity');
     var userEventsContainer = $('#user-events');
     var repoInfoContainer = $('#repo-item-info');
       
@@ -64,11 +65,15 @@ $(function(){
       localStorage.setItem('usernamesStr', JSON.stringify(usernames));
 
       var userInfoTpl = _.template($('#user-info-tpl').html());
+      var userSocialActivityTpl = _.template($('#user-social-activity-tpl').html());
 
       $.getJSON("https://api.github.com/users/" + username, function(info) {
         userInfoContainer.html('');
+        userSocialActivityContainer.html('');
         var html = userInfoTpl(info);
         userInfoContainer.append(html);
+        var social = userSocialActivityTpl(info);
+        userSocialActivityContainer.append(social);
       });
 
       var userOrgTpl = _.template($('#user-and-orgs-tpl').html());
@@ -130,6 +135,24 @@ $(function(){
         localStorage.setItem('checkboxStateStr', JSON.stringify(checkboxState));
       }
     });
+
+    var followersFollowingTpl = _.template($('#followers-following-tpl').html());
+    var followersContainer = $('#followers-page');
+    var followingContainer = $('#following-page');
+
+    function showFollowInfo(username, key){
+      $.getJSON("https://api.github.com/users/" + username + "/" + key, function(items){
+        var i = 0;
+        for (; i < items.length; i++) {
+          var html = followersFollowingTpl(items[i]);
+          if (key == 'followers') {
+            followersContainer.append(html);
+          } else if (key == 'following') {
+            followingContainer.append(html);
+          }
+        };
+      });
+    }
     
     $('#repo-info').on('click', '.history-btn', showHistory);
       
@@ -193,6 +216,24 @@ $(function(){
     page('/repos/:username', function(ctx){
       var username = ctx.params.username;
       showUserInfo(username);
+    });
+
+    page('/repos/:username/followers', function(ctx){
+      var username = ctx.params.username;
+      $('#login-form').removeClass('visible').addClass('invisible');
+      $('#user-info').removeClass('visible').addClass('invisible');
+      $('#repo-info').removeClass('visible').addClass('invisible');
+      $('#followers-page').removeClass('invisible').addClass('visible');
+      showFollowInfo(username, 'followers');
+    });
+
+    page('/repos/:username/following', function(ctx){
+      var username = ctx.params.username;
+      $('#login-form').removeClass('visible').addClass('invisible');
+      $('#user-info').removeClass('visible').addClass('invisible');
+      $('#repo-info').removeClass('visible').addClass('invisible');
+      $('#following-page').removeClass('invisible').addClass('visible');
+      showFollowInfo(username, 'following');
     });
 
     page('/repos/:username/:repoName', function(ctx){

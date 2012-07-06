@@ -102,20 +102,20 @@ body {
 .visible-cell {
   display: table-cell;
 }
+#repos-table.visible {
+  display: block;
+}
 #repos-table {
   width: 45%;
-  display: inline-block;
-  margin-left: 20px;
   vertical-align: top;
+  margin-left: 20px;
+  display: inline-block;
 }
 #user-events {
   width: 45%;
-  display: inline-block;
-  margin-left: 10px;
   vertical-align: top;
-}
-#user-events div {
-  margin-bottom: 15px;
+  margin-left: 20px;
+  display: inline-block;
 }
 table {
   font-size: 12px;
@@ -201,4 +201,67 @@ li a:hover {
   height: 700px;
   width: 400px;
   overflow-y: auto;
+}
+#user-info {
+  margin-left: 20px;
+  margin-top: 20px;
+}
+#main-user-info img {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+}
+#main-user-info h1 {
+  display: inline-block;
+  font-size: 24px;
+  margin-left: 10px;
+}
+#additional-info {
+  margin-top: 20px;
+}
+#additional-info span:nth-child(even) {
+  margin-right: 20px;
+}
+#additional-info span:nth-child(odd) {
+  color: #039;
+}
+#user-organizations {
+  display: inline-block;
+  width: 45%;
+}
+.organization-item {
+  display: inline-block;
+  margin-top: 20px;
+}
+.organization-item img {
+  display: inline-block;
+  margin-right: 10px;
+}
+.organization-item h1 {
+  display: inline-block;
+  margin-right: 20px;
+}
+#user-social-activity {
+  display: inline-block;
+  width: 45%;
+}
+.social-activity-item {
+  display: inline-block;
+}
+.social-activity-item h1{
+  font-size: 24px;
+}
+#user-events {
+  margin-top: 20px;
+}
+#repos-table {
+  margin-top: 20px;
+}
+.social-item img{
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+}
+.social-item h1{
+  display: inline-block;
 }
